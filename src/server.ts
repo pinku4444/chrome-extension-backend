@@ -30,11 +30,9 @@ export default class Server {
       config: { port, mongo_uri }
     } = this;
 
-    console.log(port);
     const database = new Database();
     database.open(mongo_uri);
 
-    console.log("Port is :", port);
     const server = this.app.listen(port, () => {
       const message = `|| App is running in '${port}' in mode ||`;
       console.log(message);

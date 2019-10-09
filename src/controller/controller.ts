@@ -16,44 +16,52 @@ class Controller {
   // This get Api Is used For search Function name on the basis given String
   get(req, res, next) {
     const limit = config.response_limit;
-    const { functionName } = req.params;
+    const { functionName } = req.query;
 
     list
       .find({ functionName: { $regex: functionName } })
       .limit(6)
       .then(user => {
+        const count = user.length;
         res.send({
           status: "Ok",
           message: "Fetch succesfully",
           data: {
             user
-          }
+          },
+          count
         });
       })
       .catch(err => {
-        console.log(" not done bro", err);
+        res.send({
+          err
+        });
       });
   }
   // This API is used for keyWord search
 
   getKeyword(req, res, next) {
     const limit = config.response_limit;
-    const { keyword } = req.params;
+    const { keyword } = req.query;
 
     list
       .find({ keyword: { $regex: keyword } })
       .limit(6)
       .then(user => {
+        const count = user.length;
         res.send({
           status: "Ok",
           message: "Fetch  KeyWord succesfully",
           data: {
             user
-          }
+          },
+          count
         });
       })
       .catch(err => {
-        console.log(" not done bro", err);
+        res.send({
+          Error: err
+        });
       });
   }
 
@@ -89,7 +97,6 @@ class Controller {
         description
           .create(descData)
           .then(desc => {
-            console.log(desc);
             const exampleData = {
               _id: mongoose.Types.ObjectId(),
               desc_id: desc.id,
@@ -116,9 +123,8 @@ class Controller {
   // This API is Return description example and param on the basis of id
 
   getParameter(req, res, next) {
-    const { id } = req.params;
+    const { id } = req.query;
 
-    console.log(id);
     description
       .find({ list_id: id })
       .then(desc => {
