@@ -15,7 +15,7 @@ class Server {
         return this.app;
     }
     initBodyParser() {
-        this.app.use(bodyParser.json({ limit: "50mb" }));
+        this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
     }
     setupRoutes() {

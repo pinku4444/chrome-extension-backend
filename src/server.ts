@@ -15,14 +15,12 @@ export default class Server {
   }
 
   initBodyParser() {
-    this.app.use(bodyParser.json({ limit: "50mb" }));
+    this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
   }
   setupRoutes() {
     const { app } = this;
-
     app.use("/api", router);
-
     this.run();
   }
   public run() {

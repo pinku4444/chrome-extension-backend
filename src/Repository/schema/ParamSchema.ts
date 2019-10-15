@@ -7,7 +7,7 @@ export default class ParamSchema extends mongoose.Schema {
         required: true,
         type: String
       },
-      param: {
+      argument: {
         required: true,
         type: String
       },

@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import * as mongoose from "mongoose";
-import { config } from "../config";
-import List from "./../Repository/List";
-import Description from "./../Repository/Description";
-import Example from "./../Repository/Example";
-import Param from "./../Repository/Param";
+import { config } from "../../config";
+import List from "./../../Repository/List";
+import Description from "./../../Repository/Description";
+import Example from "./../../Repository/Example";
+import Param from "./../../Repository/Param";
 
 //instances of repository
 const list = new List();
@@ -46,7 +46,7 @@ class Controller {
 
     list
       .find({ keyword: { $regex: keyword } })
-      .limit(6)
+      .limit(3)
       .then(user => {
         const count = user.length;
         res.send({
@@ -110,6 +110,10 @@ class Controller {
               description: param_desc
             };
             paramsObject.create(prmData);
+            res.send({
+              status: "OK",
+              message: "successfully Add Data"
+            });
           })
           .catch(err => {
             res.status(err);

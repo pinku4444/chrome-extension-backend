@@ -42,7 +42,7 @@ class Controller {
         const { keyword } = req.query;
         list
             .find({ keyword: { $regex: keyword } })
-            .limit(6)
+            .limit(3)
             .then(user => {
             const count = user.length;
             res.send({
@@ -95,6 +95,10 @@ class Controller {
                     description: param_desc
                 };
                 paramsObject.create(prmData);
+                res.send({
+                    status: "OK",
+                    message: "successfully Add Data"
+                });
             })
                 .catch(err => {
                 res.status(err);

@@ -12,6 +12,10 @@ class ExaSchema extends mongoose.Schema {
             example: {
                 required: true,
                 type: String
+            },
+            output: {
+                required: true,
+                type: String
             }
         };
         super(baseSchema, options);

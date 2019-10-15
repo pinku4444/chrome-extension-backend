@@ -9,7 +9,11 @@ export default class ListSchema extends mongoose.Schema {
       },
       keyword: {
         required: true,
-        type: String
+        type: Array
+      },
+      user: {
+        required: true,
+        type: Array
       }
     };
     super(baseSchema, options);
