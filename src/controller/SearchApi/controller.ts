@@ -25,6 +25,7 @@ class Controller {
         const count = user.length;
         res.send({
           status: "Ok",
+          code: 200,
           message: "Fetch succesfully",
           data: {
             user
@@ -34,6 +35,7 @@ class Controller {
       })
       .catch(err => {
         res.send({
+          code: 403,
           err
         });
       });
@@ -60,6 +62,7 @@ class Controller {
       })
       .catch(err => {
         res.send({
+          code: 403,
           Error: err
         });
       });
@@ -112,15 +115,22 @@ class Controller {
             paramsObject.create(prmData);
             res.send({
               status: "OK",
+              code: 200,
               message: "successfully Add Data"
             });
           })
           .catch(err => {
-            res.status(err);
+            res.send({
+              code: 403,
+              err
+            });
           });
       })
       .catch(err => {
-        res.status(err);
+        res.send({
+          code: 403,
+          err
+        });
       });
   }
 
@@ -141,6 +151,7 @@ class Controller {
               .then(param => {
                 res.send({
                   status: "Ok",
+                  code: 200,
                   message: "Get Parameters Successfully",
                   data: {
                     description: desc,
@@ -151,18 +162,21 @@ class Controller {
               })
               .catch(err => {
                 res.send({
+                  code: 403,
                   Error: err
                 });
               });
           })
           .catch(err => {
             res.send({
+              code: 403,
               Error: err
             });
           });
       })
       .catch(err => {
         res.send({
+          code: 403,
           Error: err
         });
       });

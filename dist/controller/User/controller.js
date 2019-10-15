@@ -32,6 +32,7 @@ class Controller {
             if (data.length >= 1) {
                 res.send({
                     status: "ok",
+                    code: 200,
                     message: "Function Already exist"
                 });
             }
@@ -65,6 +66,7 @@ class Controller {
                 }
                 catch (err) {
                     res.send({
+                        code: 403,
                         err
                     });
                 }
@@ -81,6 +83,7 @@ class Controller {
                         .then(paramList => { })
                         .catch(err => {
                         res.send({
+                            code: 403,
                             err
                         });
                     });
@@ -88,6 +91,7 @@ class Controller {
             }
             res.send({
                 status: "Ok",
+                code: 200,
                 message: "Function Add successfully"
             });
         });
@@ -108,6 +112,7 @@ class Controller {
                 if (tempUser != null) {
                     res.send({
                         status: "ok",
+                        code: 200,
                         message: "User already exist"
                     });
                 }
@@ -116,11 +121,13 @@ class Controller {
             catch (err) {
                 res.send({
                     status: "Failed",
+                    code: 403,
                     err
                 });
             }
             res.send({
                 status: "ok",
+                code: 200,
                 message: "User add Successfully "
             });
         });
@@ -143,6 +150,7 @@ class Controller {
                 });
                 res.send({
                     status: "Ok",
+                    code: 200,
                     massage: "Login succesfully",
                     token
                 });
@@ -150,6 +158,7 @@ class Controller {
             catch (err) {
                 res.send({
                     status: "Failed",
+                    code: 401,
                     massage: "Login Failed",
                     err
                 });

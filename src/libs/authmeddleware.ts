@@ -13,10 +13,16 @@ export default () => (req, res, next) => {
       req.user = user;
       if (!user) {
         next("User Not Found !!!!!!!!!!!!!!!!!!!!!!!!!!");
+        res.send({
+          code: 401
+        });
       }
       next();
     })
     .catch(err => {
-      next(err);
+      res.send({
+        code: 401,
+        err
+      });
     });
 };

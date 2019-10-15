@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
+import * as cors from "cors";
 import { default as router } from "./router";
 import Database from "./libs/Database";
 export default class Server {
@@ -15,6 +16,7 @@ export default class Server {
   }
 
   initBodyParser() {
+    this.app.use(cors());
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
   }
