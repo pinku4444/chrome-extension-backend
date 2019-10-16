@@ -23,6 +23,7 @@ class Controller {
       example,
       output,
       keyword,
+      type,
       param
     } = req.body;
 
@@ -40,6 +41,7 @@ class Controller {
         functionName,
         definition,
         keyword,
+        type,
         user: req.user.email
       };
       const functionLists = await listObject.create(listData);
@@ -79,7 +81,7 @@ class Controller {
         };
         paramObject
           .create(paramsData)
-          .then(paramList => {})
+          .then(paramList => { })
           .catch(err => {
             res.send({
               code: 403,

@@ -4,4 +4,5 @@ export default interface IListModel extends mongoose.Document {
   function_name: string;
   keyword: [string];
   user: string;
+  type: string;
 }

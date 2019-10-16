@@ -15,7 +15,11 @@ class ListSchema extends mongoose.Schema {
             },
             user: {
                 required: true,
-                type: Array
+                type: String
+            },
+            type: {
+                required: true,
+                type: String,
             }
         };
         super(baseSchema, options);

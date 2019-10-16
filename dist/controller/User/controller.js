@@ -27,7 +27,7 @@ class Controller {
     // This get Api Is used For search Function name on the basis given String
     create(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { functionName, definition, syntax, example, output, keyword, param } = req.body;
+            const { functionName, definition, syntax, example, output, keyword, type, param } = req.body;
             const data = yield listObject.find({ functionName: functionName });
             if (data.length >= 1) {
                 res.send({
@@ -43,6 +43,7 @@ class Controller {
                     functionName,
                     definition,
                     keyword,
+                    type,
                     user: req.user.email
                 };
                 const functionLists = yield listObject.create(listData);

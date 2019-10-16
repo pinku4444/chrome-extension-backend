@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const router_1 = require("./router");
 const Database_1 = require("./libs/Database");
 class Server {
@@ -15,6 +16,7 @@ class Server {
         return this.app;
     }
     initBodyParser() {
+        this.app.use(cors());
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
     }
