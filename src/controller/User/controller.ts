@@ -152,14 +152,14 @@ class Controller {
       res.send({
         status: "Ok",
         code: 200,
-        massage: "Login succesfully",
+        message: "Login succesfully",
         token
       });
     } catch (err) {
       res.send({
         status: "Failed",
         code: 401,
-        massage: "Login Failed",
+        message: "Login Failed",
         err
       });
     }
