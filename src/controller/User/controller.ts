@@ -31,7 +31,7 @@ class Controller {
     if (data.length >= 1) {
       res.send({
         status: "ok",
-        code: 200,
+        code: 422,
         message: "Function Already exist"
       });
     } else {
