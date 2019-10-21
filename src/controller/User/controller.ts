@@ -100,11 +100,11 @@ class Controller {
   }
 
   async signup(req, res, next) {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(password, salt);
-    const role = 'user'
+
     const user = {
       _id: mongoose.Types.ObjectId(),
       email,
