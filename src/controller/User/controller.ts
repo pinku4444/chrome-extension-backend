@@ -145,7 +145,8 @@ class Controller {
       if (!crypt) {
         res.send({
           status: "failed",
-          message: "Wrong Credential"
+          message: "Wrong Credential",
+          code: 401
         });
       }
       const userEmail = user.email;
