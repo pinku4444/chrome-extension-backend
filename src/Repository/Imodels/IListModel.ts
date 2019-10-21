@@ -5,4 +5,5 @@ export default interface IListModel extends mongoose.Document {
   keyword: [string];
   user: string;
   type: string;
+  isVerified: number;
 }

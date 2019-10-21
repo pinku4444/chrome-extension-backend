@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
+const seed_1 = require("./seed");
 class Database {
     open(mongoUri) {
         mongoose.connect(mongoUri, err => {
@@ -8,6 +9,7 @@ class Database {
                 console.log("error is >>>>>", err);
             }
             console.log("successfully connected");
+            seed_1.default();
         }, { useNewUrlParser: true });
     }
 }

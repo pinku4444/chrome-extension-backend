@@ -10,6 +10,10 @@ export default class UserSchema extends mongoose.Schema {
       password: {
         required: true,
         type: String
+      },
+      role: {
+        required: true,
+        type: String
       }
     };
     super(baseSchema, options);

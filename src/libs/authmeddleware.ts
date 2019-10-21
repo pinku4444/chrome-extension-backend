@@ -1,24 +1,40 @@
 import * as jwt from "jsonwebtoken";
 import { config } from "../config";
+import hasPermission from "./permission";
 import User from "./../Repository/User";
+import { permissions } from './constant';
 
 const UserObject = new User();
-export default () => (req, res, next) => {
+
+export default (moduleName, permissionType) => (req, res, next) => {
   try {
     const token = req.headers["authorization"];
-
     const userInfo = jwt.verify(token, config.secret_key);
 
-    UserObject.findOne({ email: userInfo["userEmail"] })
+    const role = userInfo.role;
+
+
+    UserObject
+      .findOne({ email: userInfo["userEmail"] })
       .then(user => {
+
         req.user = user;
+
         if (!user) {
           next("User Not Found !!!!!!!!!!!!!!!!!!!!!!!!!!");
           res.send({
-            code: 401
+            code: 404
           });
         }
-        next();
+        if (hasPermission(moduleName, role, permissionType)) {
+          next();
+        } else {
+          res.send({
+            code: 401,
+            message: " unauthorized access"
+          });
+
+        }
       })
       .catch(err => {
         res.send({

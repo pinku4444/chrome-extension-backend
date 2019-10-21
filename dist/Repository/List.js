@@ -13,6 +13,17 @@ class List {
     create(data) {
         return this.listModel.create(data);
     }
+    update(id, data) {
+        return this.listModel.updateOne({ _id: id }, {
+            $set: {
+                isVerified: data
+            }
+        });
+    }
+    delete(id) {
+        console.log(" delete terminal here");
+        return this.listModel.deleteOne({ _id: id });
+    }
 }
 exports.default = List;
 //# sourceMappingURL=List.js.map

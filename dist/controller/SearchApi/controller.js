@@ -16,18 +16,26 @@ class Controller {
         const limit = config_1.config.response_limit;
         const { keyword } = req.query;
         list
-            .find({ keyword: { $regex: keyword } })
-            .limit(3)
+            .find({ keyword: { $regex: keyword }, isVerified: 1 })
+            .limit(8)
             .then(user => {
             const count = user.length;
-            res.send({
-                status: "Ok",
-                message: "Fetch  KeyWord succesfully",
-                data: {
-                    user
-                },
-                count
-            });
+            if (count === 0) {
+                res.send({
+                    message: 'Result Not Found',
+                    code: 404
+                });
+            }
+            else {
+                res.send({
+                    status: "Ok",
+                    message: "Fetch  KeyWord succesfully",
+                    data: {
+                        user
+                    },
+                    count
+                });
+            }
         })
             .catch(err => {
             res.send({

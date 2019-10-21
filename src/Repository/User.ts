@@ -15,4 +15,10 @@ export default class User {
   findOne(data) {
     return this.userModel.findOne(data);
   }
+  count() {
+    return this.userModel.countDocuments({}, function (err, count) {
+      return count;
+    });
+  }
+
 }
