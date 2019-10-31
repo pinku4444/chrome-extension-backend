@@ -230,12 +230,24 @@ class Controller {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.body;
             try {
-                yield listObject.delete(id);
-                res.send({
-                    status: 'Ok',
-                    code: 200,
-                    message: "successfully Delete"
-                });
+                const functionDataList = yield listObject.find({ _id: id });
+                console.log("function ", functionDataList.length);
+                if (functionDataList.length > 0) {
+                    const deleted = yield listObject.delete(id);
+                    console.log(deleted);
+                    res.send({
+                        status: 'Ok',
+                        code: 200,
+                        message: "successfully Delete"
+                    });
+                }
+                else {
+                    res.send({
+                        status: 'Failed',
+                        code: 404,
+                        message: "Function does not exist",
+                    });
+                }
             }
             catch (err) {
                 res.send({
@@ -245,6 +257,107 @@ class Controller {
                     err
                 });
             }
+        });
+    }
+    update(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id, data } = req.body;
+            try {
+                const functionData = yield listObject.find({ _id: id });
+                const descData = yield descObject.find({ list_id: functionData[0]._id });
+                const exampleData = yield exampleObject.find({ desc_id: descData[0]._id });
+                const paramData = yield paramObject.find({ desc_id: descData[0]._id });
+                const dataArray = Object.keys(data);
+                dataArray.forEach(el => {
+                    const updateData = {
+                        [el]: data[el]
+                    };
+                    // update function List
+                    if (el in functionData[0]) {
+                        console.log(" we are in listObject");
+                        listObject.updateManydata(id, updateData).then(update => {
+                            console.log("function update", update);
+                        }).catch(err => {
+                            console.log("err is ", err);
+                            res.send({
+                                status: "failed list",
+                                code: 304,
+                                err
+                            });
+                        });
+                    }
+                    //update description data
+                    if (el in descData[0]) {
+                        console.log(" we are in descObject");
+                        descObject.update(functionData[0]._id, updateData).then(update => {
+                            console.log("description update", update);
+                        }).catch(err => {
+                            res.send({
+                                status: "failed descdata",
+                                code: 304,
+                                err
+                            });
+                        });
+                    }
+                    //update example data
+                    if (el in exampleData[0]) {
+                        console.log(" we are in exampleObject");
+                        exampleObject.update(descData[0]._id, updateData).then(update => {
+                            console.log("example  update", update);
+                        }).catch(err => {
+                            res.send({
+                                status: "failed example",
+                                code: 304,
+                                err
+                            });
+                        });
+                    }
+                    //update param Data
+                    // if (el in paramData[0]) {
+                    //   const paramArray = Object.keys(paramData);
+                    //   console.log('paramArra: ', paramArray);
+                    //   paramArray.forEach(element => {
+                    //     console.log(" PAram array is ", paramData[element]);
+                    //     if (el in paramData) {
+                    //       console.log(" we are in paramData");
+                    //     }
+                    //   })
+                    // }
+                });
+                if ('param' in data) {
+                    yield paramObject.delete(descData[0]._id);
+                    const params = req.body.data.param;
+                    for (let i = 0; i < params.length; i++) {
+                        const paramdata = {
+                            _id: mongoose.Types.ObjectId(),
+                            desc_id: descData[0]._id,
+                            argument: params[i].argument,
+                            description: params[i].description
+                        };
+                        try {
+                            yield paramObject.create(paramdata);
+                        }
+                        catch (err) {
+                            res.send({
+                                status: "failed param",
+                                code: 304,
+                                err
+                            });
+                        }
+                    }
+                }
+            }
+            catch (err) {
+                res.send({
+                    status: "failed",
+                    message: "invalid ID",
+                    code: 304,
+                    err
+                });
+            }
+            res.send({
+                status: 'ok'
+            });
         });
     }
 }

@@ -11,6 +11,14 @@ class Param {
     create(data) {
         return this.paramModel.create(data);
     }
+    update(id, data) {
+        return this.paramModel.updateOne({ _id: id }, {
+            $set: Object.assign({}, data)
+        });
+    }
+    delete(id) {
+        return this.paramModel.deleteMany({ desc_id: id });
+    }
 }
 exports.default = Param;
 //# sourceMappingURL=Param.js.map

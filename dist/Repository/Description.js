@@ -11,6 +11,11 @@ class Description {
     create(data) {
         return this.descModel.create(data);
     }
+    update(id, data) {
+        return this.descModel.updateOne({ list_id: id }, {
+            $set: Object.assign({}, data)
+        });
+    }
 }
 exports.default = Description;
 //# sourceMappingURL=Description.js.map

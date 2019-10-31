@@ -11,4 +11,13 @@ export default class Description {
   create(data) {
     return this.descModel.create(data);
   }
+  update(id, data) {
+    return this.descModel.updateOne({ list_id: id }, {
+      $set: {
+        //...data
+        ...data
+      }
+    });
+
+  }
 }

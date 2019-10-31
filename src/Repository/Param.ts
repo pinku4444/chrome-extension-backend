@@ -12,4 +12,16 @@ export default class Param {
   create(data) {
     return this.paramModel.create(data);
   }
+  update(id, data) {
+    return this.paramModel.updateOne({ _id: id }, {
+      $set: {
+        //...data
+        ...data
+      }
+    });
+
+  }
+  delete(id) {
+    return this.paramModel.deleteMany({ desc_id: id });
+  }
 }

@@ -14,4 +14,14 @@ export default class Example {
   create(data) {
     return this.exaModel.create(data);
   }
+  update(id, data) {
+
+    return this.exaModel.updateOne({ desc_id: id }, {
+      $set: {
+        //...data
+        ...data
+      }
+    });
+
+  }
 }

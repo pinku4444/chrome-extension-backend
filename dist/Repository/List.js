@@ -14,14 +14,19 @@ class List {
         return this.listModel.create(data);
     }
     update(id, data) {
+        console.log("update data", data);
         return this.listModel.updateOne({ _id: id }, {
             $set: {
                 isVerified: data
             }
         });
     }
+    updateManydata(id, data) {
+        return this.listModel.updateOne({ _id: id }, {
+            $set: Object.assign({}, data)
+        });
+    }
     delete(id) {
-        console.log(" delete terminal here");
         return this.listModel.deleteOne({ _id: id });
     }
 }
