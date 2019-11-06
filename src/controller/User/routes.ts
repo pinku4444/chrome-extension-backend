@@ -7,7 +7,8 @@ UserRoutes.route("/post").post(authmeddleware('getUsers', 'read'), controller.cr
 UserRoutes.route("/signup").post(controller.signup);
 UserRoutes.route("/login").post(controller.login);
 UserRoutes.route("/getunverified").get(authmeddleware('getUsers', 'all'), controller.getZeros);
-UserRoutes.route("/verified").put(authmeddleware('getUsers', 'all'), controller.verified);
-UserRoutes.route("/delete").delete(authmeddleware('getUsers', 'all'), controller.delete);
+UserRoutes.route("/verified").put(controller.verified);
+UserRoutes.route("/delete").post(authmeddleware('getUsers', 'all'), controller.delete);
+UserRoutes.route("/updateFunction").post(authmeddleware('getUsers', 'all'), controller.update);
 
 export { UserRoutes };
