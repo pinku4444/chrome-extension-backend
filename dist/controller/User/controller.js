@@ -28,7 +28,8 @@ class Controller {
     create(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const { functionName, definition, syntax, example, output, keyword, type, param } = req.body;
-            const data = yield listObject.find({ functionName: functionName });
+            const functionIntoLower = functionName.toLowerCase();
+            const data = yield listObject.find({ functionName: functionIntoLower });
             if (data.length >= 1) {
                 res.send({
                     status: "ok",
@@ -41,7 +42,7 @@ class Controller {
                 let isVerified = 0;
                 const listData = {
                     _id: mongoose.Types.ObjectId(),
-                    functionName,
+                    functionName: functionIntoLower,
                     definition,
                     keyword,
                     type,
@@ -357,6 +358,35 @@ class Controller {
             }
             res.send({
                 status: 'ok'
+            });
+        });
+    }
+    getFunction(req, res, next) {
+        const limit = config_1.config.response_limit;
+        const { functionName } = req.body;
+        const functionLowerCase = functionName.toLowerCase();
+        listObject
+            .find({ functionName: functionLowerCase })
+            .then(user => {
+            const count = user.length;
+            if (count === 0) {
+                res.send({
+                    message: 'function does not exist',
+                    code: 200
+                });
+            }
+            else {
+                res.send({
+                    status: "Ok",
+                    code: 200,
+                    message: "function already exist ",
+                });
+            }
+        })
+            .catch(err => {
+            res.send({
+                code: 403,
+                Error: err
             });
         });
     }

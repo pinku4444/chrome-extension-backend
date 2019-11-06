@@ -11,5 +11,6 @@ UserRoutes.route("/login").post(controller_1.default.login);
 UserRoutes.route("/getunverified").get(authmeddleware_1.default('getUsers', 'all'), controller_1.default.getZeros);
 UserRoutes.route("/verified").put(controller_1.default.verified);
 UserRoutes.route("/delete").delete(authmeddleware_1.default('getUsers', 'all'), controller_1.default.delete);
-UserRoutes.route("/updateFunction").post(controller_1.default.update);
+UserRoutes.route("/updateFunction").post(authmeddleware_1.default('getUsers', 'all'), controller_1.default.update);
+UserRoutes.route("/checkFunction").get(controller_1.default.getFunction);
 //# sourceMappingURL=routes.js.map
