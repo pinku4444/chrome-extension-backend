@@ -80,7 +80,7 @@ class Controller {
           _id: mongoose.Types.ObjectId(),
           desc_id: description.id,
           argument: element["argument"],
-          description: element["desc"]
+          description: element["description"]
         };
         paramObject
           .create(paramsData)
@@ -181,24 +181,15 @@ class Controller {
       .then(user => {
 
         const count = user.length;
-
-        if (count === 0) {
-          res.send({
-            message: 'Result Not Found',
-            code: 404
-          })
-        }
-        else {
-          res.send({
-            status: "Ok",
-            code: 200,
-            message: "Fetch  KeyWord succesfully",
-            data: {
-              user
-            },
-            count
-          });
-        }
+        res.send({
+          status: "Ok",
+          code: 200,
+          message: "Fetch  KeyWord succesfully",
+          data: {
+            user
+          },
+          count
+        });
       })
       .catch(err => {
         res.send({
@@ -392,8 +383,6 @@ class Controller {
     });
 
   }
-
-
   getFunction(req, res, next) {
     const limit = config.response_limit;
     const { functionName } = req.body;
@@ -425,8 +414,6 @@ class Controller {
         });
       });
   }
-
-
 
 
 }
