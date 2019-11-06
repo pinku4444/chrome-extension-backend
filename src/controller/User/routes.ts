@@ -10,7 +10,7 @@ UserRoutes.route("/getunverified").get(authmeddleware('getUsers', 'all'), contro
 UserRoutes.route("/verified").put(controller.verified);
 UserRoutes.route("/delete").delete(authmeddleware('getUsers', 'all'), controller.delete);
 UserRoutes.route("/updateFunction").post(authmeddleware('getUsers', 'all'), controller.update);
-UserRoutes.route("/checkFunction").get(controller.getFunction);
+UserRoutes.route("/checkFunction").post(controller.getFunction);
 
 
 export { UserRoutes };
